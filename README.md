@@ -20,7 +20,7 @@ Provided [Dockerfile](https://github.com/facebookexperimental/ExtendedAndroidToo
 ./scripts/build-docker-image.sh
 
 # Run the environment
-./scripts/run-docker-build-env.sh
+NDK_PATH=<your ndk path> ./scripts/run-docker-build-env.sh
 
 # Build a target of your choice from within the container
 > make python

@@ -6,15 +6,16 @@ $(eval $(call project-define,bpftrace))
 
 BPFTRACE_EXTRA_LDFLAGS = "-L$(abspath $(ANDROID_OUT_DIR))/lib"
 
-ifeq ($(STATIC_LINKING),true)
-BPFTRACE_EXTRA_CMAKE_FLAGS = -DSTATIC_LINKING=ON
+BPFTRACE_EXTRA_CMAKE_FLAGS = -DSTATIC_LINKING=ON -DANDROID_STL=c++_static
+# ifeq ($(STATIC_LINKING),true)
+# BPFTRACE_EXTRA_CMAKE_FLAGS = -DSTATIC_LINKING=ON
 
 # XXX: As od 925127c5 ("Make bcc depend on liblzma") we're building libbcc
 # with lzma support, but bpftrace currently doesn't have a way to detect this
 # dependency, which causes undefined symbol errors when linking statically.
 # This fixes it by adding liblzma to the link line.
-BPFTRACE_EXTRA_LDFLAGS += "$(abspath $(ANDROID_OUT_DIR))/lib/liblzma.a"
-endif
+# BPFTRACE_EXTRA_LDFLAGS += "$(abspath $(ANDROID_OUT_DIR))/lib/liblzma.a"
+# endif
 
 STRIP_THUNK = $(HOST_OUT_DIR)/bpftrace-strip-thunk
 
@@ -43,7 +44,7 @@ $(STRIP_THUNK): projects/bpftrace/strip-thunk | $(HOST_OUT_DIR)
 	@sed -e "s+<STRIP_PATH>+$(ANDROID_TOOLCHAIN_STRIP_PATH)+g" $< > $@
 	chmod +x $@
 
-BPFTRACE_COMMIT = v0.19.1
+BPFTRACE_COMMIT = v0.21.2
 BPFTRACE_REPO = https://github.com/iovisor/bpftrace.git/
 projects/bpftrace/sources:
 	git clone $(BPFTRACE_REPO) $@

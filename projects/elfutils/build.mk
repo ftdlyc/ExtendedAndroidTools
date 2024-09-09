@@ -30,3 +30,4 @@ projects/elfutils/sources: | $(DOWNLOADS_DIR)
 	-mkdir $@
 	tar xf $(DOWNLOADS_DIR)/elfutils-$(ELFUTILS_VERSION).tar.bz2 -C $@ \
 		--transform="s|^elfutils-$(ELFUTILS_VERSION)||"
+	cp projects/elfutils/libelf.map projects/elfutils/sources/libelf/libelf.map

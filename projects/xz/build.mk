@@ -12,7 +12,7 @@ $(XZ_ANDROID_BUILD_DIR): $(ANDROID_CONFIG_SITE)
 	cd $@ && $(XZ_SRCS)/configure $(ANDROID_EXTRA_CONFIGURE_FLAGS)
 
 XZ_BRANCH_OR_TAG = v5.2.5
-XZ_REPO = https://git.tukaani.org/xz.git
+XZ_REPO = https://github.com/tukaani-project/xz.git
 projects/xz/sources:
 ifeq ($(shell whoami), vagrant)
 	git clone $(XZ_REPO) /tmp/xz_sources -b $(XZ_BRANCH_OR_TAG)

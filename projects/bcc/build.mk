@@ -28,8 +28,12 @@ $(BCC_ANDROID_BUILD_DIR): $(HOST_OUT_DIR)/bin/flex
 		-DCMAKE_USE_LIBBPF_PACKAGE=ON \
 		-DPYTHON_CMD=$(abspath $(HOST_OUT_DIR)/bin/python.xinstall)
 
-BCC_COMMIT = eb8ede2d70b17350757f2570ef76ea4c2e1dbff8
+BCC_COMMIT = 052022b0d128f56405b0c4fab818b7479fd0eacc
+BPFTOOL_COMMIT = 64402b8ea43b2ef62ee8ba71d9b50a5e32603fd2
+LIBBPF_COMMIT = 686f600bca59e107af4040d0838ca2b02c14ff50
 BCC_REPO = https://github.com/iovisor/bcc
 projects/bcc/sources:
 	git clone $(BCC_REPO) $@
-	cd $@ && git checkout $(BCC_COMMIT)
+	cd $@ && git submodule update --init  --recursive && git checkout $(BCC_COMMIT) && git apply ../bcc_fix_patch.diff
+	cd $@/libbpf-tools/bpftool && git checkout $(BPFTOOL_COMMIT)
+	cd $@/libbpf-tools/bpftool/libbpf && git checkout $(LIBBPF_COMMIT)

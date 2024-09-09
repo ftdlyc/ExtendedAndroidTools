@@ -1,0 +1,14 @@
+diff --git a/introspection/bps.c b/introspection/bps.c
+index 82964966..85b58543 100644
+--- a/introspection/bps.c
++++ b/introspection/bps.c
+@@ -218,7 +218,8 @@ static int print_one_prog(uint32_t prog_id)
+ 
+   /* Retry at most one time for larger map_ids array */
+   for (i = 0; i < 2; i++) {
+-    bzero(&prog_info, sizeof(prog_info));
++    // bzero(&prog_info, sizeof(prog_info));
++    memset(&prog_info, 0, sizeof(prog_info));
+     prog_info.map_ids = ptr_to_u64(realloc(map_ids,
+                                            nr_map_ids * sizeof(*map_ids)));
+     if (!prog_info.map_ids) {

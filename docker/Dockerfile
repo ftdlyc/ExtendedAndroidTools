@@ -1,12 +1,11 @@
 # Copyright (c) Meta Platforms, Inc. and affiliates.
 
-FROM ubuntu:jammy
+FROM ubuntu:22.04
 
 COPY jammy-install-deps.sh /
 COPY download-ndk.sh /
 
-RUN bash -c "/jammy-install-deps.sh" && \
-    bash -c "/download-ndk.sh /opt/ndk"
+RUN bash -c "/jammy-install-deps.sh"
 
 WORKDIR /ExtendedAndroidTools
 
